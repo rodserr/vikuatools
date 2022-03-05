@@ -2,6 +2,7 @@ import requests
 import json
 import urllib
 import pandas as pd
+from vikuatools.utils import int_to_string, remove_value_from_dict_key, parse_properties
 
 def hs_get_recent_modified(url, hapikey, count, since, max_results):
   

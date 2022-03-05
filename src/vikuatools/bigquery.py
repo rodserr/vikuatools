@@ -1,6 +1,5 @@
 import pandas as pd
 from google.cloud import bigquery
-import time
 
 def bq_get_last_updated_object(bq_client, project_name, dataset_name, table_name, field_name):
   

@@ -1,5 +1,6 @@
 import xmlrpc.client
 import pandas as pd
+from vikuatools.utils import int_to_string, unlist_column, split_column
 
 def get_odoo_model(odoo_model, db, uid, password, model_name, fields, checkpoint = '2000/01/01 00:00:00', extra_filters = None):
     
