@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "vikuatools"
-version = "0.1.0"
+version = "0.1.1"
 description = "Tools for BI and Analytics aimed to shape smart cities"
 authors = ["Rodrigo Serrano"]
 license = "MIT"
