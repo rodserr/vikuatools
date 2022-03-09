@@ -68,6 +68,17 @@ pytz = "*"
 "zope.interface" = "*"
 
 [[package]]
+name = "fulcrum"
+version = "1.12.0"
+description = "A python wrapper for the Fulcrum API"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+requests = ">=2.11.0"
+
+[[package]]
 name = "google-api-core"
 version = "2.6.0"
 description = "Google API client core library"
@@ -471,7 +482,7 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8,<3.11"
-content-hash = "eeea3d0b7575940c5f963fa7d0db1ba557b43f7fa8b974622e6728d95cbd6766"
+content-hash = "acd442d2422bb700bcb565bc4e3c4a09042bf68663886e0dd6b13f79f535baab"
 
 [metadata.files]
 atomicwrites = [
@@ -501,6 +512,9 @@ colorama = [
 datetime = [
     {file = "DateTime-4.4-py2.py3-none-any.whl", hash = "sha256:4fcca115ddb466a1104df08d5c2a2f5805d14ca317800e1bfcea8f3d69f66e57"},
     {file = "DateTime-4.4.tar.gz", hash = "sha256:074b0c63d4328f4de30662786fa436a0567145b2ab02f47be5af68f58afc03ec"},
+]
+fulcrum = [
+    {file = "fulcrum-1.12.0.tar.gz", hash = "sha256:3f93bb80663ddac76fd99d73349c012de8a3fef5b5c9f585c67e7a927a9675ab"},
 ]
 google-api-core = [
     {file = "google-api-core-2.6.0.tar.gz", hash = "sha256:56551465be3e42966cfcb6f9243caf60aa79d023b763351876cf9702735132f4"},
