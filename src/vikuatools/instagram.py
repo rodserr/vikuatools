@@ -1,3 +1,8 @@
+import requests
+import json
+import pandas as pd
+from functools import reduce
+
 def ig_get(base_url, endpoint_parameters, to_df = True):
   
   """
