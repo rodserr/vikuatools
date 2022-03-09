@@ -38,7 +38,11 @@ def drop_duplicates(bq_client, table_id, field_name, ids):
   if not ids:
     return 'No ids to remove'
   
-  quotation_ids = ['"' +s + '"' for s in ids]
+  try:
+    quotation_ids = ['"' +s + '"' for s in ids]
+  except TypeError:
+    quotation_ids = ['"' +s + '"' for s in list(map(str, ids))]
+  
   collapsed_ids = ', '.join(map(str, quotation_ids))
     
   query = f"""DELETE `{table_id}` WHERE {field_name} in ({collapsed_ids})"""
@@ -46,7 +50,7 @@ def drop_duplicates(bq_client, table_id, field_name, ids):
     
   return query_job.result()
 
-def load_table_from_dataframe_safely(bq_client, df: pd.DataFrame, table_id: str, table_schema = None, drop_id_field = None):
+def load_table_from_dataframe_safely(bq_client, df: pd.DataFrame, table_id: str, job_config = None, drop_id_field = None):
   
   """
   Load table to BQ avoiding error if df is empty. Could be drop ids to avoid duplicates if drop_id_field is set.
@@ -55,7 +59,7 @@ def load_table_from_dataframe_safely(bq_client, df: pd.DataFrame, table_id: str,
   bq_client: BigQuery Client
   df: dataframe to upload to BigQuery
   table_id: id of table in BigQuery, it should consist of project.dataset.table
-  table_schema: list of .SchemaField element for every column in the table
+  job_config: bigquery.LoadJobConfig definitions
   drop_id_field: name of the field to drop in table_id to avoid duplicates
     
   return: nothing, it uploads the df to BQ in the table_id destination
@@ -68,8 +72,7 @@ def load_table_from_dataframe_safely(bq_client, df: pd.DataFrame, table_id: str,
     drop_ids = list(df[drop_id_field])
     drop_duplicates(bq_client, table_id = table_id, field_name =  drop_id_field, ids = drop_ids)
   
-  if table_schema:
-    job_config = bigquery.LoadJobConfig(schema=table_schema)
+  if job_config:
     job = bq_client.load_table_from_dataframe(df, table_id, job_config=job_config)
   
   else:
