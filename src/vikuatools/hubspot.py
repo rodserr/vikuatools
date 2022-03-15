@@ -207,3 +207,30 @@ def clean_hubspot_response(response_list, properties, parse_column, extraction_f
   
   return response_df
 
+def get_mkt_email_stats(parameters):
+  
+  """
+  Get marketing email stats
+  documentation at https://legacydocs.hubspot.com/docs/methods/cms_email/get-all-marketing-email-statistics
+  
+  parameters: dict with parameters to encode to endpoint
+  
+  return: pd.df with stats and basic metadata
+  """
+  
+  # endp = f'https://api.hubapi.com/marketing-emails/v1/emails/with-statistics?hapikey={hapikey}&limit={limit}&campaign=3086d92e-e66a-4b14-99f5-2b03523eb8ab'
+  parameters_parsed = urllib.parse.urlencode(parameters)
+  endp = 'https://api.hubapi.com/marketing-emails/v1/emails/with-statistics?' + parameters_parsed
+  r = requests.get(url=endp)
+  response_dict = json.loads(r.text)
+  objects = response_dict['objects']
+  
+  campaign_stats = pd.DataFrame(objects).query('currentState != "DRAFT"').reset_index()[['id', 'name', 'created', 'publishDate', 'updated', 'stats']]
+  metadata = campaign_stats[['id', 'name', 'created', 'publishDate', 'updated']]
+  stats = pd.DataFrame([x['counters'] for x in campaign_stats['stats']])
+  
+  df = pd.concat([metadata, stats], axis=1)
+  
+  df = parse_properties(df, columns_to_datetime = ['created', 'publishDate', 'updated'], columns_to_string='id')
+  
+  return df
