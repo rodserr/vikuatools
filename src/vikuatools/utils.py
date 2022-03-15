@@ -15,7 +15,7 @@ def timestamp_to_unix(x):
   
   return x_unix.__round__()
 
-def parse_properties(df, columns_to_integer=None, columns_to_datetime=None, columns_to_numeric=None, columns_to_boolean=None):
+def parse_properties(df, columns_to_integer=None, columns_to_datetime=None, columns_to_numeric=None, columns_to_boolean=None, columns_to_string = None, dt_unit = 'ms', boolean_dict = {'true': True, 'false': False, '': None}):
   
   """
   Parse string columns to other formats. This function is used in hubspot routine, its not yet scaled to other routines
@@ -30,13 +30,16 @@ def parse_properties(df, columns_to_integer=None, columns_to_datetime=None, colu
     df[columns_to_integer] = df[columns_to_integer].apply(string_to_integer)
   
   if columns_to_datetime:
-    df[columns_to_datetime] = df[columns_to_datetime].apply(pd.to_datetime, unit =  'ms')
+    df[columns_to_datetime] = df[columns_to_datetime].apply(pd.to_datetime, unit = dt_unit)
   
   if columns_to_numeric:
     df[columns_to_numeric] = df[columns_to_numeric].apply(pd.to_numeric, errors = 'coerce', downcast='float')
     
   if columns_to_boolean:
-    df[columns_to_boolean] = df[columns_to_boolean].replace({'true': True, 'false': False, '': None}).astype('boolean')
+    df[columns_to_boolean] = df[columns_to_boolean].replace(boolean_dict).astype('boolean')
+
+  if columns_to_string:
+    df[columns_to_string] = df[columns_to_string].apply(int_to_string)
   
   return df
 
