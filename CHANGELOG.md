@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.1.3 (15/03/2022)
+- fix bug in `parse_properties` arguments, now al columns_ are *None* by default. Also extra arguments to define boolean dictionary and dt unit
+- function to `get_mkt_email_stats` from hubspot
+
 ## v0.1.2 (9/03/2022)
 
 - Add fulcrum dependency

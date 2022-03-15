@@ -4,8 +4,10 @@ Tools for BI and Analytics aimed to shape smart cities
 
 ## Installation
 
+Not in pipy yet
+
 ```bash
-$ pip install vikuatools
+$ pip install git+https://github.com/rodserr/vikuatools@main
 ```
 
 ## Usage
