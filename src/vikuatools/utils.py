@@ -15,7 +15,7 @@ def timestamp_to_unix(x):
   
   return x_unix.__round__()
 
-def parse_properties(df, columns_to_integer, columns_to_datetime, columns_to_numeric, columns_to_boolean):
+def parse_properties(df, columns_to_integer=None, columns_to_datetime=None, columns_to_numeric=None, columns_to_boolean=None):
   
   """
   Parse string columns to other formats. This function is used in hubspot routine, its not yet scaled to other routines
