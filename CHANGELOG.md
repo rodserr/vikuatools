@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.1.4 (25/03/2022)
+- function to `clean_currency_rate` in odoo module
+- `clean_move_line` now retreive analytic account field
+
 ## v0.1.3 (15/03/2022)
 - fix bug in `parse_properties` arguments, now al columns_ are *None* by default. Also extra arguments to define boolean dictionary and dt unit
 - function to `get_mkt_email_stats` from hubspot
