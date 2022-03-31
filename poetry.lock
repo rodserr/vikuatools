@@ -68,6 +68,20 @@ pytz = "*"
 "zope.interface" = "*"
 
 [[package]]
+name = "db-dtypes"
+version = "1.0.0"
+description = "Pandas Data Types for SQL systems (BigQuery, Spanner)"
+category = "main"
+optional = false
+python-versions = ">=3.6, <3.11"
+
+[package.dependencies]
+numpy = ">=1.16.6,<2.0dev"
+packaging = ">=17.0"
+pandas = ">=0.24.2,<2.0dev"
+pyarrow = ">=3.0.0,<8.0dev"
+
+[[package]]
 name = "fulcrum"
 version = "1.12.0"
 description = "A python wrapper for the Fulcrum API"
@@ -500,7 +514,7 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8,<3.11"
-content-hash = "26718318636705cb1ca9437152726e765047a6d79dab774a2b4e1cbeff5e08e7"
+content-hash = "3b4242708336ad1bd39a1354803baed12d915f89c2bf9bc060dc271e17ecc2aa"
 
 [metadata.files]
 atomicwrites = [
@@ -530,6 +544,10 @@ colorama = [
 datetime = [
     {file = "DateTime-4.4-py2.py3-none-any.whl", hash = "sha256:4fcca115ddb466a1104df08d5c2a2f5805d14ca317800e1bfcea8f3d69f66e57"},
     {file = "DateTime-4.4.tar.gz", hash = "sha256:074b0c63d4328f4de30662786fa436a0567145b2ab02f47be5af68f58afc03ec"},
+]
+db-dtypes = [
+    {file = "db-dtypes-1.0.0.tar.gz", hash = "sha256:3070d1a8d86ff0b5d9b16f15c5fab9c18893c6b3d5723cd95ee397b169049454"},
+    {file = "db_dtypes-1.0.0-py2.py3-none-any.whl", hash = "sha256:66f6c1b87161814292a2856d1acc17fd4af1b7055853dc7d11af33dc5b94f64e"},
 ]
 fulcrum = [
     {file = "fulcrum-1.12.0.tar.gz", hash = "sha256:3f93bb80663ddac76fd99d73349c012de8a3fef5b5c9f585c67e7a927a9675ab"},
