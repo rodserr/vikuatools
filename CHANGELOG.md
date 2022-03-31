@@ -1,5 +1,8 @@
 # Changelog
 
+## v0.1.6 (31/03/2022)
+- Update bigquery dependency
+
 ## v0.1.5 (31/03/2022)
 - new function to `get_stage_history` of hubspot deals 
 - fix bug when NaN appears in `get_mkt_email_stats`
