@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.1.5 (31/03/2022)
+- new function to `get_stage_history` of hubspot deals 
+- fix bug when NaN appears in `get_mkt_email_stats`
+- `hs_get_recent_modified` non restricted argument to include parameters in the api call
+
 ## v0.1.4 (25/03/2022)
 - function to `clean_currency_rate` in odoo module
 - `clean_move_line` now retreive analytic account field
