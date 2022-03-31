@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.1.6 (31/03/2022)
+## v0.1.7 (31/03/2022)
 - Update bigquery dependency
 
 ## v0.1.5 (31/03/2022)
