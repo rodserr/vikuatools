@@ -4,15 +4,13 @@ import urllib
 import pandas as pd
 from vikuatools.utils import int_to_string, remove_value_from_dict_key, parse_properties
 
-def hs_get_recent_modified(url, hapikey, count, since, max_results):
+def hs_get_recent_modified(url, parameters, max_results):
   
   """
   Get recent modified object from hubspot API legacy
   
   url: str endpoint to retreive. one of deals, companies or engagements
-  hapikey: str api_key
-  count: dbl number of object to retreive in a single call
-  since: dbl unix datetime in miliseconds to retreive after
+  parameters: dict with parameters to include in call e.g. api_key, count, since
   max_results: dbl max number of objects to retreive
   
   return: list with object from responses
@@ -20,14 +18,14 @@ def hs_get_recent_modified(url, hapikey, count, since, max_results):
   
   object_list = []
   get_recent_url = url
-  parameter_dict = {'hapikey': hapikey, 'count': count, 'since': since}
+  parameter_dict = parameters
   headers = {}
   
   # Paginate your request using offset
   has_more = True
   while has_more:
-    parameters = urllib.parse.urlencode(parameter_dict)
-    get_url = get_recent_url + parameters
+    params = urllib.parse.urlencode(parameter_dict)
+    get_url = get_recent_url + params
     r = requests.get(url= get_url, headers = headers)
     response_dict = json.loads(r.text)
     
@@ -225,12 +223,30 @@ def get_mkt_email_stats(parameters):
   response_dict = json.loads(r.text)
   objects = response_dict['objects']
   
-  campaign_stats = pd.DataFrame(objects).query('currentState != "DRAFT"').reset_index()[['id', 'name', 'created', 'publishDate', 'updated', 'stats']]
-  metadata = campaign_stats[['id', 'name', 'created', 'publishDate', 'updated']]
-  stats = pd.DataFrame([x['counters'] for x in campaign_stats['stats']])
+  campaign_df=pd.DataFrame(objects).query('currentState != "DRAFT"').reset_index(drop=True).dropna(subset='stats')
+  
+  metadata = campaign_df[['id', 'name', 'created', 'publishDate', 'updated', 'campaignName']].reset_index(drop=True)
+  stats = pd.DataFrame([x['counters'] for x in campaign_df['stats']])
   
   df = pd.concat([metadata, stats], axis=1)
   
   df = parse_properties(df, columns_to_datetime = ['created', 'publishDate', 'updated'], columns_to_string='id')
   
   return df
+
+def get_stage_history(l):
+
+  """
+  Unlist Deal Stage History
+
+  l: list
+  return: pd.df
+  """
+
+  stage_history = pd.DataFrame(l["properties"]["dealstage"]["versions"])[['value', 'timestamp']]
+
+  stage_history['hs_object_id'] = l['dealId']
+
+  stage_history = parse_properties(stage_history, columns_to_datetime='timestamp').rename(columns={'value': 'stageId'})
+
+  return stage_history
