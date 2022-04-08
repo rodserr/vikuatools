@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.1.8 (8/04/2022)
+- `get_request` for general purpose
+- `get_stage_history` to tidy deal history list in hubspot
+- add order argument in `bq_get_last_updated_object` to be able to change min or max date
+
 ## v0.1.7 (31/03/2022)
 - Update bigquery dependency
 
