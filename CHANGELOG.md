@@ -1,5 +1,8 @@
 # Changelog
 
+## v0.1.9 (8/04/2022)
+- typo in utils dependency
+
 ## v0.1.8 (8/04/2022)
 - `get_request` for general purpose
 - `get_stage_history` to tidy deal history list in hubspot
