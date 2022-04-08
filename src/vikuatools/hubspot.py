@@ -247,6 +247,10 @@ def get_stage_history(l):
 
   stage_history['hs_object_id'] = l['dealId']
 
-  stage_history = parse_properties(stage_history, columns_to_datetime='timestamp').rename(columns={'value': 'stageId'})
+  stage_history = parse_properties(
+    stage_history,
+    columns_to_datetime='timestamp',
+    columns_to_string='hs_object_id'
+  ).rename(columns={'value': 'stageId'})
 
   return stage_history

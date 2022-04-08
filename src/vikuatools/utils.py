@@ -1,5 +1,7 @@
 import pandas as pd
 import datetime as dt
+import request
+import json
 
 def timestamp_to_unix(x):
   
@@ -150,3 +152,20 @@ def unlist_column(df: pd.DataFrame(), list_column: str, new_column_names: list):
     df_copy
   
   return df_copy
+
+def get_request(base_url, parameters = {}, header = {}):
+  
+  """
+  Send Request to endpoint 
+  
+  base_url: str url to point to. Consist of endpoint_base and object to retreive
+  endpoint_parameters: dict Parameters to include in the request
+  header: dict Headers to include in the request
+  
+  return: list
+  """
+  
+  req = requests.get(base_url, params = parameters, headers = header)
+  respond = json.loads(req.content)
+  
+  return respond

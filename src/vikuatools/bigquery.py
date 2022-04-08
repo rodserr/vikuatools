@@ -1,7 +1,7 @@
 import pandas as pd
 from google.cloud import bigquery
 
-def bq_get_last_updated_object(bq_client, project_name, dataset_name, table_name, field_name):
+def bq_get_last_updated_object(bq_client, project_name, dataset_name, table_name, field_name, order = 'max'):
   
   """
   Get max date/datetime in 'field_name' from 'table_name'. This is usefull to run the update routine
@@ -11,11 +11,12 @@ def bq_get_last_updated_object(bq_client, project_name, dataset_name, table_name
   dataset_name: str dataset where table_name lives
   table_name: str table to query
   field_name: str name of the date/datetime field to get max value
+  order: str max or min
   
   return: max field_name in table_name
   """
   
-  checkpoint_query = f"SELECT max({field_name}) as last_updated FROM `{project_name}.{dataset_name}.{table_name}` "
+  checkpoint_query = f"SELECT {order}({field_name}) as last_updated FROM `{project_name}.{dataset_name}.{table_name}` "
   checkpoints_df = bq_client.query(checkpoint_query, project=project_name).to_dataframe()
   
   last_updated_datetime = checkpoints_df['last_updated'][0]
