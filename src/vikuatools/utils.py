@@ -1,6 +1,6 @@
 import pandas as pd
 import datetime as dt
-import request
+import requests
 import json
 
 def timestamp_to_unix(x):
