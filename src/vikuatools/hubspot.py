@@ -158,19 +158,24 @@ def hs_extract_engagements(engagement_list, *arg):
   list_properties = []
   for obj in engagement_list:
     props_dict = obj['engagement']
-    props = dict((k, props_dict[k]) for k in ['id', 'createdAt', 'lastUpdated', 'type'] if k in props_dict)
-  
-    companyIds = obj['associations']['companyIds']
-    dealIds = obj['associations']['dealIds']
-    contactIds = obj['associations']['contactIds']
-    props['companyIds'] = companyIds
-    props['dealIds'] = dealIds
-    props['contactIds'] = contactIds
+    props = dict((k, props_dict[k]) for k in ['id', 'createdAt', 'lastUpdated', 'type', 'ownerId', 'activityType'] if k in props_dict)
+    
+    props['companyIds'] = obj['associations']['companyIds']
+    props['dealIds'] = obj['associations']['dealIds']
+    props['contactIds'] = obj['associations']['contactIds']
+    try:
+      props['disposition'] = obj['metadata']['disposition']
+    except:
+      props['disposition'] = None
   
     list_properties.append(props)
   
   df_eng = pd.DataFrame(list_properties).rename(columns = {'id': 'hs_object_id'})
   df_eng['hs_object_id'] = df_eng['hs_object_id'].apply(int_to_string)
+  try:
+    df_eng['ownerId'] = df_eng['ownerId'].apply(int_to_string)
+  except:
+    None
   
   return df_eng
 
