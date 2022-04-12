@@ -1,5 +1,8 @@
 # Changelog
 
+## v0.1.10 (12/04/2022)
+- `hs_extract_engagements` now extracts ownerId and disposition
+
 ## v0.1.9 (8/04/2022)
 - typo in utils dependency
 
